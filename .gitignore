@@ -4,6 +4,7 @@ microsoft/
 AdaptiveConsulting/
 dotnet/
 .vs/
+.vscode/
 TestPrograms/[Bb]in/
 [Oo]bj/
 Demo/bin
