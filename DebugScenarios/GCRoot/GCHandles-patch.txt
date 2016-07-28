@@ -1,0 +1,19 @@
+diff --git a/src/ToolBox/SOS/Strike/gcroot.cpp b/src/ToolBox/SOS/Strike/gcroot.cpp
+index 663457d..830e350 100644
+--- a/src/ToolBox/SOS/Strike/gcroot.cpp
++++ b/src/ToolBox/SOS/Strike/gcroot.cpp
+@@ -432,10 +432,12 @@ void GCRootImpl::ReportOneHandlePath(const SOSHandleData &handle, RootNode *path
+     if (printHeader)
+         ExtOut("HandleTable:\n");
+ 
+-    ExtOut("    %p (%s handle)\n", SOS_PTR(handle.Handle), NameForHandle(handle.Type));
++    //ExtOut("    %p (%s handle)\n", SOS_PTR(handle.Handle), NameForHandle(handle.Type));
++	DMLOut("    %p (<exec cmd=\"!GCHandles -type %s\">%s</exec> handle)\n", SOS_PTR(handle.Handle), NameForHandle(handle.Type), NameForHandle(handle.Type));
+     while (path)
+     {
+-        ExtOut("    -> %p %S%s\n", SOS_PTR(path->Object), path->GetTypeName(), path->FromDependentHandle ? " (dependent handle)" : "");
++        //ExtOut("    -> %p %S%s\n", SOS_PTR(path->Object), path->GetTypeName(), path->FromDependentHandle ? " (dependent handle)" : "");
++		DMLOut("    -> %s %S%s\n", DMLObject(path->Object), path->GetTypeName(), path->FromDependentHandle ? " (dependent handle)" : "");
+         path = path->Next;
+     }
+ 

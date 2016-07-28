@@ -1,0 +1,1 @@
+git apply %~dp0GCHandles-patch.txt
