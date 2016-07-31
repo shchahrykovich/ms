@@ -4,6 +4,7 @@ microsoft/
 AdaptiveConsulting/
 dotnet/
 .vs/
+.vscode/
 TestPrograms/[Bb]in/
 [Oo]bj/
 Demo/bin
@@ -11,4 +12,3 @@ TestPrograms/TestPrograms.v11.suo
 aspnet/KestrelHttpServer/
 DebugScenarios/*/runtime
 DebugScenarios/LastBuild/PDB
-DebugScenarios/.vscode/.BROWSE.VC.DB

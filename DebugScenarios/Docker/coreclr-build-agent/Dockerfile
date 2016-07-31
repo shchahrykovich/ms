@@ -26,3 +26,8 @@ RUN sysctl fs.file-max
 RUN sysctl -p
 
 RUN apt-get install -y --force-yes git
+
+RUN git clone http://github.com/dotnet/coreclr /usr/src/coreclr
+RUN git clone http://github.com/shchahrykovich/ms /usr/src/ms
+
+RUN /usr/src/coreclr/build.sh
