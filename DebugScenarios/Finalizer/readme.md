@@ -8,6 +8,12 @@ dx g_FinalizerLoopCount
 dx g_FinalizerIsRunning
 bp AllocateObject
 
+dx flag
+dt MethodTable::WFLAGS_HIGH_ENUM
+
+dt SOS!FinalizeQueue
+bp SOS!FinalizeQueue
+
 ### Commands
 p  - Target executes one instruction. If this instruction is a function call, that function is executed as a single step.
 t  - Target executes one instruction. If this instruction is a function call, debugger traces into that call.
