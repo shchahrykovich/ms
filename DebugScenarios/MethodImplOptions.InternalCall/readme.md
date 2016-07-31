@@ -1,4 +1,4 @@
-bp CoreCLR!COMString::Length
+1. bp CoreCLR!COMString::Length
 
 C:\Projects\ms\dotnet\coreclr\src\classlibnative\bcltype\stringnative.cpp
 C:\Projects\ms\dotnet\coreclr\src\mscorlib\src\System\String.cs
