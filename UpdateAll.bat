@@ -1,7 +1,7 @@
 @echo off
 
 setlocal                                                                                    
-set projects=(dotnet/coreclr dotnet/corefx dotnet/corefxlab dotnet/corert dotnet/cli microsoft/msbuild dotnet/dotnet-ci dotnet/buildtools dotnet/roslyn dotnet/llilc aspnet/dnx aspnet/KestrelHttpServer microsoft/microsoft-pdb microsoft/ChakraCore microsoft/clr-samples AdaptiveConsulting/Aeron.NET)
+set projects=(dotnet/coreclr dotnet/corefx dotnet/corefxlab dotnet/corert dotnet/cli microsoft/msbuild dotnet/dotnet-ci dotnet/buildtools dotnet/roslyn dotnet/llilc aspnet/dnx aspnet/KestrelHttpServer microsoft/microsoft-pdb microsoft/ChakraCore microsoft/clr-samples AdaptiveConsulting/Aeron.NET dotnet/symreader-portable dotnet/symstore dotnet/symreader dotnet/core-setup)
 
 set gitex="C:\Program Files (x86)\Git\bin\git.exe"
 if not exist %gitex% (
