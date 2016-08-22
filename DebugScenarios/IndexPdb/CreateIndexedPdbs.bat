@@ -20,4 +20,4 @@ FOR /f "tokens=*" %%G IN ('git log -1 --format^=%%H') DO (set git_commit="%%G")
 cd %~dp0
 echo %git_commit%                                              
 
-powershell github-sourceindexer.ps1 -symbolsFolder '%result_folder%\PDB\' -gitHubUrl 'https://raw.githubusercontent.com/dotnet/coreclr' -commit %git_commit% -sourcesRoot '%~dp0..\..\dotnet\coreclr\' -dbgToolsPath 'C:\debuggers' -ignoreUnknown True
+powershell %~dp0github-sourceindexer.ps1 -symbolsFolder '%result_folder%\PDB\' -gitHubUrl 'https://raw.githubusercontent.com/dotnet/coreclr' -commit %git_commit% -sourcesRoot '%~dp0..\..\dotnet\coreclr\' -dbgToolsPath 'C:\debuggers' -ignoreUnknown True

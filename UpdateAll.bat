@@ -22,7 +22,7 @@ for %%p in %projects% do (
   echo ===
 )
 
-set p=dotnet/coreclr-release/
+set p=dotnet/coreclr-1.0.0/
 if not exist %p% (	
   echo Creating %p%
   if exist dotnet/coreclr (
@@ -32,3 +32,15 @@ if not exist %p% (
 
 cd %p%
 %gitex% checkout abbb8f685929c7aeaa087dae46fedc1bc2af4b17
+cd ..\..
+
+set p=dotnet/coreclr-1.0.4/
+if not exist %p% (	
+  echo Creating %p%
+  if exist dotnet/coreclr (
+  	%gitex% clone dotnet/coreclr %p%
+  )
+)
+
+cd %p%
+%gitex% checkout 51131a5a2af24783044c43a60f1052fc35196076

@@ -200,7 +200,7 @@ function WriteStreamVariables {
   Add-Content -value "SRCSRV: variables ------------------------------------------" -path $streamPath
   Add-Content -value "SRCSRVVERCTRL=http" -path $streamPath
   Add-Content -value "HTTP_ALIAS=$gitHubUrl" -path $streamPath
-  Add-Content -value "HTTP_EXTRACT_TARGET=%HTTP_ALIAS%/%var2%/%var3%" -path $streamPath
+  Add-Content -value "HTTP_EXTRACT_TARGET=%HTTP_ALIAS%/$commit/%var2%" -path $streamPath
   Add-Content -value "SRCSRVTRG=%http_extract_target%" -path $streamPath
   Add-Content -value "SRCSRVCMD=" -path $streamPath
 }
@@ -311,8 +311,7 @@ function WriteStreamSources {
       $filepath = $srcStrip
     }
     
-    #Add-Content -value "HTTP_ALIAS=http://github.com/%var2%/%var3%$raw/%var4%/%var5%" -path $streamPath
-    Add-Content -value "$src*$commit*$filepath" -path $streamPath
+    Add-Content -value "$src*$filepath" -path $streamPath
     Write-Verbose "Indexing source to $gitHubUrl/$userId/$repository$raw/$branch/$filepath"
   }
 }
