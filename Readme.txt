@@ -1,1 +1,0 @@
-A few scripts for learning .net/ms open source projects
