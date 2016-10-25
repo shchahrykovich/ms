@@ -5,7 +5,7 @@ $projects = @("dotnet/coreclr", "dotnet/corefx", "dotnet/corefxlab", "dotnet/cor
               "dotnet/roslyn", "dotnet/llilc", "aspnet/dnx", "aspnet/KestrelHttpServer", 
               "microsoft/microsoft-pdb", "microsoft/ChakraCore", "microsoft/clr-samples", 
               "AdaptiveConsulting/Aeron.NET", "dotnet/symreader-portable", "dotnet/symstore", 
-              "dotnet/symreader", "dotnet/core-setup", "PowerShell/PowerShell");
+              "dotnet/symreader", "dotnet/core-setup", "PowerShell/PowerShell", "microsoft/perfview");
 
 if ( $IsLinux ) {
     $gitex="git"
