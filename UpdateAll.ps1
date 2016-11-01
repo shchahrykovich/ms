@@ -5,7 +5,7 @@ $projects = @("dotnet/coreclr", "dotnet/corefx", "dotnet/corefxlab", "dotnet/cor
               "dotnet/roslyn", "dotnet/llilc", "aspnet/dnx", "aspnet/KestrelHttpServer", 
               "microsoft/microsoft-pdb", "microsoft/ChakraCore", "microsoft/clr-samples", 
               "AdaptiveConsulting/Aeron.NET", "dotnet/symreader-portable", "dotnet/symstore", 
-              "dotnet/symreader", "dotnet/core-setup", "PowerShell/PowerShell");
+              "dotnet/symreader", "dotnet/core-setup", "PowerShell/PowerShell", "microsoft/perfview");
 
 if ( $IsLinux ) {
     $gitex="git"
@@ -23,6 +23,7 @@ foreach($p in $projects)
         Write-Output "Updating $p"
         cd "$PSScriptRoot/$p"
         .$gitex pull 
+        .$gitex fetch -p
         cd $PSScriptRoot
     } else {
         Write-Output "Creating $p"
@@ -33,18 +34,18 @@ foreach($p in $projects)
 
 
 # Checkout releases
-if ( -not $IsLinux ) {
-    $releases = curl https://api.github.com/repos/dotnet/coreclr/tags | % { $_.Content } | ConvertFrom-Json
-    $releases = $releases | ?{ $_.name.StartsWith("v") }
-    foreach($r in $releases)
-    {
-        Write-Output "Updating $($r.name)"
-        $path = "$PSScriptRoot/dotnet/coreclr-$($r.name)"
-        if( -not(Test-Path $path) ) {
-            .$gitex clone "$PSScriptRoot/dotnet/coreclr" $path
-            cd $path
-            .$gitex checkout $r.commit.sha
-        }
-        Write-Output "==="
-    }
-}
+#if ( -not $IsLinux ) {
+#    $releases = curl https://api.github.com/repos/dotnet/coreclr/tags | % { $_.Content } | ConvertFrom-Json
+#    $releases = $releases | ?{ $_.name.StartsWith("v") }
+#    foreach($r in $releases)
+#    {
+#        Write-Output "Updating $($r.name)"
+#        $path = "$PSScriptRoot/dotnet/coreclr-$($r.name)"
+#        if( -not(Test-Path $path) ) {
+#            .$gitex clone "$PSScriptRoot/dotnet/coreclr" $path
+#            cd $path
+#            .$gitex checkout $r.commit.sha
+#        }
+#        Write-Output "==="
+#    }
+#}
