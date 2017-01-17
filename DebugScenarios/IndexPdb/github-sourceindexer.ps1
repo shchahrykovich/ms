@@ -50,9 +50,7 @@ param(
        [Parameter(Mandatory = $true)]
        [Alias("symbols")]
        [string] $symbolsFolder,
-       
-       
-       
+
        ## github branch name
        [Parameter(Mandatory = $true)]
        [string] $commit,
@@ -76,7 +74,9 @@ param(
        [switch] $serverIsRaw,
        
        ## Verify the filenames in the tree in the local repository
-       [switch] $verifyLocalRepo
+       [switch] $verifyLocalRepo,
+
+       [string] $workingDir = ""
        )
        
 
@@ -267,6 +267,7 @@ function WriteStreamSources {
   
   #other source files
   foreach ($src in $sources) {
+    $src = $src.Replace($workingDir, $sourcesRoot);
     
     #if the source path $src contains a string in the $ignore array, skip it
     [bool] $skip = $false;
@@ -280,8 +281,8 @@ function WriteStreamSources {
       continue;
     }
     
-    if (!$src.StartsWith($sourcesRoot, [System.StringComparison]::CurrentCultureIgnoreCase)) {
-      if ($ignoreUnknown) {
+    if (!$src.StartsWith($sourcesRoot, [System.StringComparison]::CurrentCultureIgnoreCase)) {       
+      if ($ignoreUnknown) {       
         Write-Verbose "Can't find $src"
         continue;
       } else {
@@ -339,6 +340,7 @@ if ($serverIsRaw) {
 # Check the debugging tools path
 $dbgToolsPath = CheckDebuggingToolsPath $dbgToolsPath
 
+Write-Verbose "Symbol folder $($symbolsFolder) ..."
 $pdbs = Get-ChildItem $symbolsFolder -Filter *.pdb -Recurse
 foreach ($pdb in $pdbs) {
   Write-Verbose "Indexing $($pdb.FullName) ..."
