@@ -1,0 +1,4 @@
+.prefer_dml 1;
+.sympath+ "${$arg1}\PDB\";
+.load ${$arg1}\sos.dll;
+sxe -c "" clrn

@@ -29,6 +29,7 @@ foreach($p in $projects)
         Write-Output "Creating $p"
         .$gitex clone https://github.com/$p "$PSScriptRoot/$p"
     }
+    Write-Output "Finished $p"
     Write-Output "==="
 }
 

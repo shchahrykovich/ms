@@ -46,29 +46,26 @@
 #>
 
 param(
-       ## Folder that will be recursively searched for PDB files.
-       [Parameter(Mandatory = $true)]
-       [Alias("symbols")]
-       [string] $symbolsFolder,
+       ## Folder that will be recursively searched for PDB files.      
+       [string] $symbolsFolder = "C:\\Projects\\ms\\DebugScenarios\\LastBuild",
 
        ## github branch name
-       [Parameter(Mandatory = $true)]
-       [string] $commit,
+       [string] $commit = "ebac716ebbd34046916744f8d0d50829fbeb3104",
        
        ## A root path for the source files
-       [string] $sourcesRoot,
-       
+       [string] $sourcesRoot = "C:\Projects\ms\dotnet\coreclr",
+        
        ## Debugging Tools for Windows installation path
-       [string] $dbgToolsPath,
+       [string] $dbgToolsPath = "C:\debuggers",
        
        ## Github URL
-       [string] $gitHubUrl,
+       [string] $gitHubUrl = "https://raw.githubusercontent.com/dotnet/coreclr",
        
        ## Ignore a source path that contains any of the strings in this array
-       [string[]] $ignore,
+       [string[]] $ignore = $true,
        
        ## Ignore paths other than the source root
-       [switch] $ignoreUnknown,
+       [switch] $ignoreUnknown = $true,
        
        ## Server serves raw: don't concatenate /raw in the path
        [switch] $serverIsRaw,
@@ -76,9 +73,41 @@ param(
        ## Verify the filenames in the tree in the local repository
        [switch] $verifyLocalRepo,
 
-       [string] $workingDir = ""
+       [string] $workingDir = "d:\a\_work\33\s\"
        )
        
+#http://serverfault.com/questions/431416/get-filename-in-the-case-stored-on-disk
+Function Resolve-PathName { [CmdletBinding()]
+Param(
+    [Parameter(ValueFromPipelinebyPropertyName,ValueFromPipeline,Mandatory)]
+    [Alias("Fullname")]
+    [string] $File,
+    [switch] $Cygpath
+) Process {
+    
+    if(-not (Test-Path $File) )
+    {
+        return $File
+    }
+
+    $cur = $File
+    $stack = New-Object System.Collections.Stack
+
+    while ( $cur.length -gt 0) {
+        $stack.Push( (split-path $cur -Leaf) )
+        $cur = split-path $cur
+    }
+    $cur = get-item ($stack.pop())
+    while ( $stack.Count -gt 0) {
+        $cur = $cur | Get-ChildItem -Filter ($stack.Pop())
+    }
+    if ($Cygpath) {
+        cygpath $cur.Fullname
+    } else {
+        $cur.Fullname
+    }
+}}
+
 
 function CorrectPathBackslash {
   param([string] $path)
@@ -265,9 +294,11 @@ function WriteStreamSources {
     }
   }
   
-  #other source files
+  #other source files  
   foreach ($src in $sources) {
+    $originalSrc = $src;
     $src = $src.Replace($workingDir, $sourcesRoot);
+    $src = Resolve-PathName $src
     
     #if the source path $src contains a string in the $ignore array, skip it
     [bool] $skip = $false;
@@ -312,7 +343,7 @@ function WriteStreamSources {
       $filepath = $srcStrip
     }
     
-    Add-Content -value "$src*$filepath" -path $streamPath
+    Add-Content -value "$originalSrc*$filepath" -path $streamPath
     Write-Verbose "Indexing source to $gitHubUrl/$userId/$repository$raw/$branch/$filepath"
   }
 }

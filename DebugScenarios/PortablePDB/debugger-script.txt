@@ -1,0 +1,9 @@
+.prefer_dml 1;
+.sympath+ "${$arg1}\PDB\";
+.load ${$arg1}\sos.dll;
+bp sos!Breakpoints::Update
+bp sos!SymbolReader::LoadSymbolsForPortablePDB
+bp CoreCLR!CorHost2::_CreateDelegate
+
+sxe -c "" clrn
+sxeld:SOS.NETCore;
